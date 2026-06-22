@@ -1,7 +1,7 @@
 import { WebsiteType } from "@/types/website";
 
 export async function getStaticPaths() {
-  const websites = await fetch("http://localhost:3000/websites.json").then(
+  const websites = await fetch("http://localhost:3001/websites.json").then(
     (res) => res.json(),
   );
 
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
   const { slug } = params;
-  const websites = await fetch("http://localhost:3000/websites.json").then(
+  const websites = await fetch("http://localhost:3001/websites.json").then(
     (res) => res.json(),
   );
 
