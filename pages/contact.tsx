@@ -1,3 +1,4 @@
-export default function ContactPage() {
-  return <div>ContactPage</div>;
+type ContactPageType = {};
+export default function ContactPage({}: ContactPageType) {
+  return <main>ContactPage</main>;
 }

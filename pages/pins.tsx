@@ -1,3 +1,4 @@
-export default function PinsPage() {
-  return <div>PinsPage</div>;
+type PinsPageType = {};
+export default function PinsPage({}: PinsPageType) {
+  return <main>PinsPage</main>;
 }

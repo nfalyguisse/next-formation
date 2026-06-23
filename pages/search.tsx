@@ -1,3 +1,4 @@
-export default function SearchPage() {
-  return <div>SearchPage</div>;
+type SearchPageType = {};
+export default function SearchPage({}: SearchPageType) {
+  return <main>SearchPage</main>;
 }
