@@ -2,18 +2,18 @@ import { Button } from "@/composants/ui/Button";
 import Title from "@/composants/ui/Title";
 import Website from "@/composants/ui/Website";
 import { WebsiteType } from "@/types/website";
+import path from "path";
+import { promises as fs } from "fs";
 
-export async function getStaticProps() {
-  const websites = await fetch("http://localhost:3001/websites.json").then(
-    (res) => res.json(),
-  );
-  return { props: { websites } };
+async function getWebsites(): Promise<WebsiteType[]> {
+  const filePath = path.join(process.cwd(), "public", "websites.json");
+  const fileContents = await fs.readFile(filePath, "utf-8");
+  return JSON.parse(fileContents);
 }
 
-type WebsitesPageType = {
-  websites: WebsiteType[];
-};
-export default function WebsitesPage({ websites }: WebsitesPageType) {
+export default async function WebsitesPage() {
+  const websites = await getWebsites();
+
   return (
     <main className="px-6 py-12">
       <Title tag="h1" topLine="Découvrez de nouveaux">
@@ -25,7 +25,7 @@ export default function WebsitesPage({ websites }: WebsitesPageType) {
         ))}
       </div>
       <footer className="pt-12 flex justify-center">
-        <Button onClick={() => {}}>Charger plus de sites web</Button>
+        <Button>Charger plus de sites web</Button>
       </footer>
     </main>
   );

@@ -4,19 +4,18 @@ import Title from "@/composants/ui/Title";
 import Website from "@/composants/ui/Website";
 import WebsiteHeader from "@/composants/ui/WebsiteHeader";
 import { WebsiteType } from "@/types/website";
+import path from "path";
+import { promises as fs } from "fs";
 
-export async function getStaticProps() {
-  const websites = await fetch("http://localhost:3000/websites.json").then(
-    (res) => res.json(),
-  );
-  return { props: { websites } };
+async function getWebsites(): Promise<WebsiteType[]> {
+  const filePath = path.join(process.cwd(), "public", "websites.json");
+  const fileContents = await fs.readFile(filePath, "utf-8");
+  return JSON.parse(fileContents);
 }
 
-type HomePageType = {
-  websites: WebsiteType[];
-};
+export default async function HomePage() {
+  const websites = await getWebsites();
 
-export default function HomePage({ websites }: HomePageType) {
   return (
     <main>
       <WebsiteHeader website={websites[0]} />
@@ -47,7 +46,6 @@ export default function HomePage({ websites }: HomePageType) {
         <Title tag="h2" topLine="découvrez notre dernier">
           Highlight
         </Title>
-
         <Video src="/highlight.mp4" />
       </div>
     </main>
